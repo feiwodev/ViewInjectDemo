@@ -62,7 +62,6 @@ public class VInjectProcessor extends AbstractProcessor {
             handler.attachProcessingEnvironment(processingEnv);
             // handle annotation 处理注解 ，得到注解类的属性列表
             mHandleAnnotationMap.putAll(handler.handleAnnotation(roundEnv));
-
         }
         // 生成辅助类
         mGenerateAdapter.generate(mHandleAnnotationMap);

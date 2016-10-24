@@ -8,6 +8,9 @@ import com.zeno.viewinject.adapter.IVInjectorAdapter;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *
+ */
 public class ViewInject {
 
     public static final String SUFFIX = "$VInjectorAdapter";
