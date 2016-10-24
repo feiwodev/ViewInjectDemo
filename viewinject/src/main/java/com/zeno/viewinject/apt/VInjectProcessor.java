@@ -40,7 +40,7 @@ public class VInjectProcessor extends AbstractProcessor {
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
-        // init annotation handler
+        // init annotation handler , add handler
         registerHandler(new VInjectHandler());
 
         // init generate adapter
@@ -48,6 +48,7 @@ public class VInjectProcessor extends AbstractProcessor {
 
     }
 
+    /*可以有多个处理*/
     protected void registerHandler(IAnnotationHandler handler) {
         mAnnotationHandler.add(handler);
     }
@@ -64,7 +65,7 @@ public class VInjectProcessor extends AbstractProcessor {
 
         }
         // 生成辅助类
-//        mGenerateAdapter.generate(mHandleAnnotationMap);
+        mGenerateAdapter.generate(mHandleAnnotationMap);
         // 表示处理
         return true;
     }

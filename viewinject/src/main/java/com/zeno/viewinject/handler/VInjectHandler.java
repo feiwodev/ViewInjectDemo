@@ -2,7 +2,7 @@ package com.zeno.viewinject.handler;
 
 
 import com.zeno.viewinject.annotation.VInjector;
-import com.zeno.viewinject.utils.PrintUtils;
+import com.zeno.viewinject.utils.AnnotationUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,18 +38,17 @@ public class VInjectHandler implements IAnnotationHandler {
         Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(VInjector.class);
         for (Element element : elements) {
             VariableElement variableElement = (VariableElement) element;
-            /*获取类名*/
+            /*获取类名 ，将类目与属性配对，一个类，对于他的属性列表*/
             String className = getParentClassName(variableElement);
             List<VariableElement> cacheElements = map.get(className);
             if (cacheElements == null) {
                 cacheElements = new ArrayList<>();
                 map.put(className,cacheElements);
             }
-            PrintUtils.print(className+" - "+variableElement.getSimpleName());
             cacheElements.add(variableElement);
         }
 
-        return null;
+        return map;
     }
 
     /**
@@ -58,7 +57,9 @@ public class VInjectHandler implements IAnnotationHandler {
      */
     private String getParentClassName(VariableElement variableElement) {
         TypeElement typeElement = (TypeElement) variableElement.getEnclosingElement();
-        String packageName = mProcessingEnvironment.getElementUtils().getPackageOf(typeElement).getQualifiedName().toString();
+        String packageName = AnnotationUtils.getPackageName(mProcessingEnvironment,typeElement);
         return packageName+"."+typeElement.getSimpleName().toString();
     }
+
+
 }
